@@ -89,3 +89,22 @@ try:
     print(tax_id)
 except:
     print("您所查詢的公司並無營利事業單位統一編號")
+
+#search company's scandal
+data = {
+    'facility_name':'',
+    'corp_id':tax_id,
+    'industry_name':'All',
+    'factory_fine':'1',
+    'id_2':'All',
+}
+url = 'https://thaubing.gcaa.org.tw/corp/search?'
+
+tree = web_request(url,data,flag='get')
+try:
+    print(tree.xpath('//*[@id="block-system-main"]/div/div/div[2]/div/h4/span/a/text()')[0])
+    print("開罰紀錄： " + tree.xpath('//*[@id="block-system-main"]/div/div/div[2]/div/div/span/text()')[0])
+    detail = 'https://thaubing.gcaa.org.tw' + tree.xpath('//*[@id="block-system-main"]/div/div/div[2]/div/h4/span/a/@href')[0]
+    print("相關開罰連結： " + detail)
+except:
+    print("資料庫查無環境違規紀錄")
