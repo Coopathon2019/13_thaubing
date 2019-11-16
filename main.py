@@ -44,27 +44,32 @@ def barcodeReader(image, bgr):
 
         return "Barcode:{}".format(bc.data.decode("utf-8"))
 
-
-#barcode scan
-bgr = (8, 70, 208)
-cap = cv2.VideoCapture(0)
-find_flag=1
-while (find_flag):
-    ret, frame = cap.read()
-    barcode = barcodeReader(frame, bgr)
-    print(barcode)
-    if barcode != None:
-        barcode_to_name = barcode.split(':', 1 )[1]
-        find_flag = 0
-    cv2.imshow('Barcode reader', frame)
-    code = cv2.waitKey(10)
-    if code == ord('q'):
-        break
-
+if __debug__:
+    #barcode scan
+    bgr = (8, 70, 208)
+    cap = cv2.VideoCapture(0)
+    find_flag=1
+    while (find_flag):
+        ret, frame = cap.read()
+        barcode = barcodeReader(frame, bgr)
+        print(barcode)
+        if barcode != None:
+            barcode_to_name = barcode.split(':', 1 )[1]
+            find_flag = 0
+        cv2.imshow('Barcode reader', frame)
+        code = cv2.waitKey(10)
+        if code == ord('q'):
+            break
+else:
+    pass
 
 
 #search company's name
-name = barcode_to_name
+if __debug__:
+    name = barcode_to_name
+else:
+    name = sys.argv[1]
+
 data= {
     'MCANNO': name
 }
