@@ -59,3 +59,21 @@ while (find_flag):
     if code == ord('q'):
         break
 
+
+
+#search company's name
+name = barcode_to_name
+data= {
+    'MCANNO': name
+}
+url = 'http://www.gs1tw.org/twct/web/codesearch_send.jsp'
+
+tree = web_request(url,data,flag='post')
+try:
+    content = [t.text for t in tree.xpath("/html/body/div[1]/div[1]/div[2]/div/div/div/div[2]/p[1]")]
+    company = str(content[0])
+    company = company[21:]
+    print(company)
+except:
+    print("您掃的條碼查無結果請重新掃描")
+
