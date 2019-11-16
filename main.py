@@ -77,3 +77,15 @@ try:
 except:
     print("您掃的條碼查無結果請重新掃描")
 
+#search company's Tax ID
+data = {
+        'q':company
+}
+url='http://company.g0v.ronny.tw/index/search?'
+
+tree = web_request(url,data,flag='get')
+try:
+    tax_id = tree.xpath("//td[2]/text()")[0]
+    print(tax_id)
+except:
+    print("您所查詢的公司並無營利事業單位統一編號")
