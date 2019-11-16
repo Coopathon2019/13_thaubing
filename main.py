@@ -10,7 +10,6 @@ from pyzbar.pyzbar import decode
 import numpy as np
 import cv2
 
-
 def web_request(url,data,flag):
     if flag == 'get':
         response = requests.get(url,params=data)
@@ -86,6 +85,8 @@ url='http://company.g0v.ronny.tw/index/search?'
 tree = web_request(url,data,flag='get')
 try:
     tax_id = tree.xpath("//td[2]/text()")[0]
+    if(len(tax_id) != 8):
+        tax_id = tree.xpath("//td[1]/a/text()")[0]
     print(tax_id)
 except:
     print("您所查詢的公司並無營利事業單位統一編號")
