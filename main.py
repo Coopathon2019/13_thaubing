@@ -108,3 +108,18 @@ try:
     print("相關開罰連結： " + detail)
 except:
     print("資料庫查無環境違規紀錄")
+
+#get google search result
+google_url = 'https://www.google.com.tw/search'
+my_params = {'q': company+' 污染'}
+
+r = requests.get(google_url, params = my_params)
+
+if r.status_code == requests.codes.ok:
+  soup = BeautifulSoup(r.text, 'html.parser')
+
+
+  items = soup.select('a[href^="/url"]')
+  for i in items:
+    print("搜尋結果: "  + i.text)
+    print("連結: " + i.get('href'))
