@@ -9,6 +9,9 @@ import sys
 from pyzbar.pyzbar import decode
 import numpy as np
 import cv2
+import sys
+reload(sys)
+sys.setdefaultencoding('utf8')
 
 def web_request(url,data,flag):
     if flag == 'get':
